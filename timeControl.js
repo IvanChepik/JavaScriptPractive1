@@ -31,7 +31,11 @@ var time =
             case 'hours':
                 this._date.setHours(this._date.getHours() + duration);
                 break;
+            default: 
+                throw new TypeError("Incorrect unit");
         }
+
+        return this;
     },
 
     substract: function(duration, typeTime)
@@ -53,7 +57,11 @@ var time =
             case 'hours':
                 this._date.setHours(this._date.getHours() - duration);
                 break;
+            default: 
+                throw new TypeError("Incorrect unit");
         }
+
+        return this;
     }
 };
 
@@ -71,4 +79,15 @@ Object.defineProperty(time, 'date', {
 });
 
 time.date = new Date();
-console.log(time.date);
+try
+{
+    time.add(22, 'minutes')
+        .add(3, 'months')
+        .substract(12, 'years')
+        .add(63, 'hours');
+    console.log(time.date);
+}
+catch (e)
+{
+    console.log(e.message);
+}
