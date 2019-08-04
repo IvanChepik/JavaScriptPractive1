@@ -57,9 +57,16 @@ function filterIn()
 
 }
 
-function cloneCollection()
+function cloneCollection(collection)
 {
+    var newCollection = [];
 
+    collection.forEach(function(item, index) {
+        var newKeys = Object.keys(item);
+        newCollection.push(cloneItem(item, newKeys));
+    })
+
+    return newCollection;
 }
 
 function cloneItem(item, properties)
@@ -78,5 +85,6 @@ function query(collection)
 {
 
 }
+
 
 
