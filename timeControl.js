@@ -1,6 +1,26 @@
+function editTime(date)
+{
+    return date.getFullYear() + '-' + AddNullToDate(date.getMonth()) + '-' + AddNullToDate(date.getDate()) + ' ' + AddNullToDate(date.getHours())+':' + AddNullToDate(date.getMinutes());
+};
+
+function AddNullToDate(date)
+{
+    return date<10? '0' + date: date;
+}
+
 var time = 
 {
-    _date : undefined
+    _date : undefined,
+
+    add: function()
+    {
+
+    },
+
+    substract: function()
+    {
+        
+    }
 };
 
 Object.defineProperty(time, 'date', {
@@ -17,4 +37,4 @@ Object.defineProperty(time, 'date', {
 });
 
 time.date = new Date();
-console.log(time.date);
+console.log(editTime(time.date));
