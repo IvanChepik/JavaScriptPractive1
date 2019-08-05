@@ -1,6 +1,7 @@
 var priorities = 
 {
-    operationSelect:0
+    operationSelect:1,
+    operationFilterIn: 0
 }
 
 var friends = [
@@ -68,7 +69,9 @@ function filterIn(fieldName)
 
     return operationFilterIn = function(colllection)
     {
-        return colllection.filter(function(item)
+        newCollection = cloneCollection(colllection);
+
+        return newCollection.filter(function(item)
         {
             return acceptedValues.indexOf(item[fieldName]) != -1;
         });
@@ -103,6 +106,11 @@ function query(collection)
 {
     var operations = [].slice.call(arguments, 1);
 
+    operations.sort(function(item, nextitem)
+    {
+        return priorities[item.name] - priorities[nextitem.name];
+    });
+
     return operations.reduce(function(newCollection, operation)
     {
         return operation(newCollection);
@@ -110,7 +118,17 @@ function query(collection)
 
 }
 
-var bestFriends = query(friends, filterIn('name', 'Сэм'));
-console.log(bestFriends);
-console.log(friends[0]);
+function displayCollection(collection)
+{
+    collection.forEach(function(item)
+    {
+        console.log(item);
+    })
+}
+
+
+var bestFriends = query(friends, filterIn('gender', 'Мужской'), select('gender', 'name'));
+
+displayCollection(bestFriends);
+displayCollection(friends);
 
