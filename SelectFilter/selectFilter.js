@@ -106,16 +106,23 @@ function query(collection)
 {
     var operations = [].slice.call(arguments, 1);
 
-    operations.sort(function(item, nextitem)
+    function sortOperations(operations)
     {
-        return priorities[item.name] - priorities[nextitem.name];
-    });
+        operations.sort(function(item, nextitem)
+        {
+            return priorities[item.name] - priorities[nextitem.name];
+        });
+    }
 
-    return operations.reduce(function(newCollection, operation)
+    return (function query()
     {
-        return operation(newCollection);
-    }, collection)
+        sortOperations(operations);
 
+        return operations.reduce(function(newCollection, operation)
+        {
+            return operation(newCollection);
+        }, collection)       
+    }())
 }
 
 function displayCollection(collection)
