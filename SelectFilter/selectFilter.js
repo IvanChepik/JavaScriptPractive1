@@ -1,3 +1,8 @@
+var priorities = 
+{
+    operationSelect:0
+}
+
 var friends = [
     {
         name: 'Сэм',
@@ -47,19 +52,27 @@ function select()
 {
     var fields = [].slice.call(arguments);
 
-    return function(collection)
+    return operationSelect  = function(collection)
     {
         return collection.map(function(item, index)
         {
-            return cloneItem(item, arguments)
+            return cloneItem(item, fields)
         });
 
     }
 }
 
-function filterIn()
+function filterIn(fieldName)
 {
+    var acceptedValues = [].slice.call(arguments, 1);
 
+    return operationFilterIn = function(colllection)
+    {
+        return colllection.filter(function(item)
+        {
+            return acceptedValues.indexOf(item[fieldName]) != -1;
+        });
+    }
 }
 
 function cloneCollection(collection)
@@ -88,11 +101,16 @@ function cloneItem(item, properties)
 
 function query(collection)
 {
-    var operation = select('name');
-    var newCollection = operation(collection);
-    return newCollection;
+    var operations = [].slice.call(arguments, 1);
+
+    return operations.reduce(function(newCollection, operation)
+    {
+        return operation(newCollection);
+    }, collection)
+
 }
 
-console.log(query(friends));
-
+var bestFriends = query(friends, filterIn('name', 'Сэм'));
+console.log(bestFriends);
+console.log(friends[0]);
 
