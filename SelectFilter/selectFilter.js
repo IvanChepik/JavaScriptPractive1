@@ -46,9 +46,14 @@ var friends = [
 function select()
 {
     var fields = [].slice.call(arguments);
-    return function()
+
+    return function(collection)
     {
-        
+        return collection.map(function(item, index)
+        {
+            return cloneItem(item, arguments)
+        });
+
     }
 }
 
@@ -83,8 +88,11 @@ function cloneItem(item, properties)
 
 function query(collection)
 {
-
+    var operation = select('name');
+    var newCollection = operation(collection);
+    return newCollection;
 }
 
+console.log(query(friends));
 
 
