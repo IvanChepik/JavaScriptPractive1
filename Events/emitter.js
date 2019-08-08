@@ -14,6 +14,13 @@ module.exports =
 
     off:function(event, subscriber)
     {
+        events = events.filter(function(item, index)
+        {
+            if (item.event != event || item.subscriber != subscriber)
+            {
+                return item;
+            }
+        });
         return this;
     },
 
