@@ -1,18 +1,19 @@
 module.exports = 
 {
-    on:function()
+    on:function(event, subscriber, handler)
     {
 
+        return this;
     },
 
     off:function()
     {
-
+        return this;
     },
 
-    emit:function()
+    emit:function(event)
     {
-        
+        return this;
     }
 }
 
