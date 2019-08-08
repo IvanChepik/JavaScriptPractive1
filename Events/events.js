@@ -23,12 +23,12 @@ emitter
 
 console.log(logger.logs);
 
-emitter
-    .off('new_notification', logger)
-    .emit('new_notification')
-    .on('new_notification', logger, function () {
-        this.logs.push('New events - new_notification!');
-    })
-    .emit('new_notification');
+//emitter
+//    .off('new_notification', logger)
+//    .emit('new_notification')
+//    .on('new_notification', logger, function () {
+//        this.logs.push('New events - new_notification!');
+//    })
+//    .emit('new_notification');
 
-console.log(logger.logs);
+//console.log(logger.logs);
