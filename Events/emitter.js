@@ -8,27 +8,25 @@ module.exports =
             event:event,
             subscriber:subscriber,
             handler:handler
-        })
+        });
         return this;
     },
 
     off:function(event, subscriber)
     {
-        events = events.filter(function(item, index)
+        events = events.filter(function(item)
         {
-            if (item.event != event || item.subscriber != subscriber)
-            {
-                return item;
-            }
+            return item.event !== event || item.subscriber !== subscriber;
         });
+
         return this;
     },
 
     emit:function(event)
     {
-        events.forEach(function(item, index)
+        events.forEach(function(item)
         {
-            if (item.event == event)
+            if (item.event === event)
             {
                 item.handler.call(item.subscriber);
             }    
